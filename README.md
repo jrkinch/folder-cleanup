@@ -26,6 +26,10 @@ Steps:<br>
 tidy.run_cleanup()
 </code>
 
+> [!NOTE]
+> Running <code>python main.py</code> from the project folder organizes the 'Downloads' folder and Desktop.<br>
+
+
 <h2>Testing:</h2>
 1) Run <code>python -m pytest -v</code> in the project folder or 'run_test.bat' file from the 'scripts' folder.<br>
 &emsp;- can also test specific functions with:<br>
