@@ -1,0 +1,16 @@
+[project]
+name = "folder-cleanup"
+version = "0.1.0"
+description = "Project to organize specified folder."
+authors = [{name = "jrkinch"}]
+dependencies = [
+	"pytest==8.2.2"
+]
+
+[tools.setuptools.packages.find]
+where = ["./src"]
+include = ["cleanup"]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
