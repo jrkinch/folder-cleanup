@@ -20,14 +20,14 @@ Creating an instance of the class takes two arguments, source path and destinati
 1. Clone the repo:
 
 ```console
-	git clone https://github.com/jrkinch/folder-cleanup.git
+git clone https://github.com/jrkinch/folder-cleanup.git
 ```
 
 <br>
 2. Install python dependencies:
 
 ```console
-	pip install -r docs/requirements.tx
+pip install -r docs/requirements.tx
 ```
 > [!TIP]
 > Can also run the 'run_requirements.bat' from the 'scripts' folder.
@@ -42,16 +42,16 @@ Steps to use in own project:<br>
 - Example using 'cleanup' folder:<br>
 
 ```python
-	from cleanup.cleanup import Cleanup
+from cleanup.cleanup import Cleanup
 	
-	tidy = Cleanup(source,destination)
-	tidy.run_cleanup()
+tidy = Cleanup(source,destination)
+tidy.run_cleanup()
 ```
 
 > [!NOTE]
 > Running <code>python main.py</code> from the 'src' folder organizes the 'Downloads' folder and Desktop.<br>
 > ```python
->	python main.py
+>python main.py
 > ```
 
 
@@ -60,7 +60,7 @@ Steps to use in own project:<br>
 1) Run tests from the project folder:<br>
 
 ```python
-	python -m pytest -v
+python -m pytest -v
 ```
 > [!TIP]
 > Can also run the 'run_test.bat' file from the 'scripts' folder..
