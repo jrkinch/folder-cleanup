@@ -1,2 +1,2 @@
+platformdirs==4.5.0
 pytest==8.2.2
-setuptools==69.2.0

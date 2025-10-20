@@ -7,6 +7,7 @@
         - Both arguments can be the same if organized folders are preferred at same location.
 '''
 import os
+import platformdirs
 from cleanup.cleanup import Cleanup
 
 if __name__ == '__main__':
@@ -16,6 +17,6 @@ if __name__ == '__main__':
     tidy.run_cleanup()
 
     #Same behavior as above but with Desktop files.
-    DESKTOP_SRC = f"{os.environ['USERPROFILE']}\\OneDrive\\Desktop"
+    DESKTOP_SRC = platformdirs.user_desktop_dir()
     tidy = Cleanup(DESKTOP_SRC, DESKTOP_SRC)
     tidy.run_cleanup()
