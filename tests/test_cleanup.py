@@ -11,6 +11,7 @@
             - like -v for more verbose info and using specified marked tests.
 '''
 import os
+import platformdirs
 import shutil
 import atexit
 from src.cleanup.cleanup import Cleanup
@@ -41,7 +42,7 @@ class TestCleanup():
         print(f"Setting up {method}")
         #pylint: disable=attribute-defined-outside-init
         #This use case defines variables for each test case before running.
-        self.src = f"{os.environ['USERPROFILE']}\\OneDrive\\Desktop"
+        self.src = platformdirs.user_desktop_dir()
         self.testing_files = f"{homePath}\\tests\\test_files"
         self.restore_files = f"{homePath}\\tests\\backup_restore"
         self.testing_folder = f"{self.src}\\test"
@@ -147,9 +148,9 @@ class TestCleanup():
         ext1 = self.tidy.get_ext(file1)
         ext2 = self.tidy.get_ext(file2)
         ext3 = self.tidy.get_ext(file3)
-        expected1 = f"{ext1[0]}_{self.tidy.current_time.strftime("%m-%d-%Y_%I_%M_%S_%p")}{ext1[1]}"
-        expected2 = f"{ext2[0]}_{self.tidy.current_time.strftime("%m-%d-%Y_%I_%M_%S_%p")}{ext2[1]}"
-        expected3 = f"{ext3[0]}_{self.tidy.current_time.strftime("%m-%d-%Y_%I_%M_%S_%p")}{ext3[1]}"
+        expected1 = f"{ext1[0]}_{self.tidy.current_time.strftime('%m-%d-%Y_%I_%M_%S_%p')}{ext1[1]}"
+        expected2 = f"{ext2[0]}_{self.tidy.current_time.strftime('%m-%d-%Y_%I_%M_%S_%p')}{ext2[1]}"
+        expected3 = f"{ext3[0]}_{self.tidy.current_time.strftime('%m-%d-%Y_%I_%M_%S_%p')}{ext3[1]}"
 
         self.tidy.move_file_item(self.testing_files, self.src, file1)
         self.tidy.move_file_item(self.testing_files, self.src, file2)
@@ -179,8 +180,8 @@ class TestCleanup():
         file1, file2, file3 = "sample_img.png", "sample_doc.txt", "sample_main.py"
         ext1 = self.tidy.get_ext(file2)
         ext2 = self.tidy.get_ext(file3)
-        expected1 = f"{ext1[0]}_{self.tidy.current_time.strftime("%m-%d-%Y_%I_%M_%S_%p")}{ext1[1]}"
-        expected2 = f"{ext2[0]}_{self.tidy.current_time.strftime("%m-%d-%Y_%I_%M_%S_%p")}{ext2[1]}"
+        expected1 = f"{ext1[0]}_{self.tidy.current_time.strftime('%m-%d-%Y_%I_%M_%S_%p')}{ext1[1]}"
+        expected2 = f"{ext2[0]}_{self.tidy.current_time.strftime('%m-%d-%Y_%I_%M_%S_%p')}{ext2[1]}"
 
         self.tidy.sort_folder_contents()
 
@@ -198,7 +199,7 @@ class TestCleanup():
     #this with atexit couldn't have .self variables, have to pass the full path
         """This is called after suite is finished running, copys the backup 
         files so test can run again and deletes the test destination folder from Desktop."""
-        path = f"{os.environ['USERPROFILE']}\\OneDrive\\Desktop\\test"
+        path = f"{platformdirs.user_desktop_dir()}\\test"
         if os.path.exists(path):
             print("Test suite completed, exiting...")
             copy_backups()

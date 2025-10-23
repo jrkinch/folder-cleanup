@@ -9,6 +9,7 @@
     TODO: Testing modularity, add more file extensions
 '''
 import os
+import platformdirs
 import datetime
 
 class Cleanup():
@@ -137,8 +138,8 @@ class Cleanup():
 #Testing module.
 if __name__ == '__main__':
     #Looks at Desktop folder and orgainzes the files on the Desktop.
-    SRC = f"{os.environ['USERPROFILE']}\\OneDrive\\Desktop"
-    TEMP_SRC = f"{os.environ['USERPROFILE']}\\OneDrive\\Desktop\\test"
+    SRC = platformdirs.user_desktop_dir()
+    TEMP_SRC = f"{platformdirs.user_desktop_dir()}\\test"
 
     tidy = Cleanup(SRC,SRC)
     tidy.run_cleanup()
