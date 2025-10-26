@@ -78,5 +78,5 @@ docker compose up
 docker compose down
 ```
 > [!NOTE]
-> A container for the 'src/main' and 'tests' are created when using docker compose.<br>
+> An image for the 'src/main' and 'tests' are created and those containers are ran when using docker compose.<br>
 > Similiar to running <code>python main.py</code> and <code>python -m pytest -v</code> when using docker compose.
