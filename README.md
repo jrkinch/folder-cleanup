@@ -64,3 +64,19 @@ python -m pytest -v
 ```
 > [!TIP]
 > Can also run the 'run_test.bat' file from the 'scripts' folder..
+
+<h2>Docker:</h2>
+1) Builds the images and runs the containers for this project:<br>
+
+```console
+docker compose up
+```
+<br>
+2) Stops and removes the containers for this project:<br>
+
+```console
+docker compose down
+```
+> [!NOTE]
+> A container for the 'src/main' and 'tests' are created when using docker compose.<br>
+> Similiar to running <code>python main.py</code> and <code>python -m pytest -v</code> when using docker compose.

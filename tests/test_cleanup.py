@@ -11,27 +11,29 @@
             - like -v for more verbose info and using specified marked tests.
 '''
 import os
-import platformdirs
 import shutil
 import atexit
 from src.cleanup.cleanup import Cleanup
-import pytest
+
 
 if os.getcwd()[-5:] == 'tests': #using 'tests' folder
     homePath = os.path.dirname(os.getcwd())
 else: #using script or running in 'folder-cleanup' folder.
     homePath = os.getcwd()
 
+if not os.path.exists("test-run"):
+    os.makedirs("test-run")
+
 def copy_backups():
     """
         Copies the sample files and restores them.
     """
-    shutil.copyfile(f"{homePath}\\tests\\test_files\\backup_restore\\sample_img.png",
-    f"{homePath}\\tests\\test_files\\sample_img.png")
-    shutil.copyfile(f"{homePath}\\tests\\test_files\\backup_restore\\sample_doc.txt",
-    f"{homePath}\\tests\\test_files\\sample_doc.txt")
-    shutil.copyfile(f"{homePath}\\tests\\test_files\\backup_restore\\sample_main.py",
-    f"{homePath}\\tests\\test_files\\sample_main.py")
+    shutil.copyfile(f"{homePath}/tests/test_files/backup_restore/sample_img.png",
+    f"{homePath}/tests/test_files/sample_img.png")
+    shutil.copyfile(f"{homePath}/tests/test_files/backup_restore/sample_doc.txt",
+    f"{homePath}/tests/test_files/sample_doc.txt")
+    shutil.copyfile(f"{homePath}/tests/test_files/backup_restore/sample_main.py",
+    f"{homePath}/tests/test_files/sample_main.py")
 
 class TestCleanup():
     """Tests for the cleanup module."""
@@ -42,10 +44,10 @@ class TestCleanup():
         print(f"Setting up {method}")
         #pylint: disable=attribute-defined-outside-init
         #This use case defines variables for each test case before running.
-        self.src = platformdirs.user_desktop_dir()
-        self.testing_files = f"{homePath}\\tests\\test_files"
-        self.restore_files = f"{homePath}\\tests\\backup_restore"
-        self.testing_folder = f"{self.src}\\test"
+        self.src = f"{os.getcwd()}/test-run"
+        self.testing_files = f"{homePath}/tests/test_files"
+        self.restore_files = f"{homePath}/tests/backup_restore"
+        self.testing_folder = f"{self.src}/test"
 
         self.tidy = Cleanup(self.src,self.testing_folder)
 
@@ -122,9 +124,9 @@ class TestCleanup():
             Check fileList after dynamically created files 
             and moving to test 'move_file_item' function.
         """
-        with open(f"{self.testing_files}\\new_sample_doc.txt", "w", encoding='utf-8') as file:
+        with open(f"{self.testing_files}/new_sample_doc.txt", "w", encoding='utf-8') as file:
             file.write("Hello World")
-        with open(f"{self.testing_files}\\new_sample_main.py", "w", encoding='utf-8') as file:
+        with open(f"{self.testing_files}/new_sample_main.py", "w", encoding='utf-8') as file:
             file.write('print("Hello World")')
 
         file1, file2 = "new_sample_doc.txt", "new_sample_main.py"
@@ -185,8 +187,8 @@ class TestCleanup():
 
         self.tidy.sort_folder_contents()
 
-        self.tidy.imageFileList = os.listdir(f"{self.testing_folder}\\Images")
-        self.tidy.docFileList = os.listdir(f"{self.testing_folder}\\Documents")
+        self.tidy.imageFileList = os.listdir(f"{self.testing_folder}/Images")
+        self.tidy.docFileList = os.listdir(f"{self.testing_folder}/Documents")
 
         assert file1 in self.tidy.imageFileList
         assert file2 in self.tidy.docFileList
@@ -199,7 +201,7 @@ class TestCleanup():
     #this with atexit couldn't have .self variables, have to pass the full path
         """This is called after suite is finished running, copys the backup 
         files so test can run again and deletes the test destination folder from Desktop."""
-        path = f"{platformdirs.user_desktop_dir()}\\test"
+        path = "./test-run"
         if os.path.exists(path):
             print("Test suite completed, exiting...")
             copy_backups()
@@ -210,4 +212,6 @@ class TestCleanup():
 if __name__ == '__main__': #pragma: no cover
     import subprocess
 
-    subprocess.run(["pytest", "-v"], check=False)
+    #pylint: disable=undefined-variable
+    #Using default cwd for current working directory.
+    subprocess.check_call(["pytest", "-v"], cwd=cwd, check=False)

@@ -6,13 +6,12 @@
         - Destination path is where to move the files to.
         - Both arguments can be the same if organized folders are preferred at same location.
 '''
-import os
 import platformdirs
 from cleanup.cleanup import Cleanup
 
 if __name__ == '__main__':
     #This looks at my Download folder and organizes into folders in the same Downloads folder.
-    DOWNLOAD_SRC = f"{os.environ['USERPROFILE']}\\Downloads"
+    DOWNLOAD_SRC = platformdirs.user_downloads_dir()
     tidy = Cleanup(DOWNLOAD_SRC, DOWNLOAD_SRC)
     tidy.run_cleanup()
 

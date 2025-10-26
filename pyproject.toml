@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Project to organize specified folder."
 authors = [{name = "jrkinch"}]
 dependencies = [
+	"platformdirs==4.5.0",
 	"pytest==8.2.2"
 ]
 
