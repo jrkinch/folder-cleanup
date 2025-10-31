@@ -27,7 +27,7 @@ git clone https://github.com/jrkinch/folder-cleanup.git
 2. Install python dependencies:
 
 ```console
-pip install -r docs/requirements.tx
+pip install -r docs/requirements.txt
 ```
 > [!TIP]
 > Can also run the 'run_requirements.bat' from the 'scripts' folder.
